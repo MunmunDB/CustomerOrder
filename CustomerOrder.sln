@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProject_CustomerOrder_M
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.CustomerOrderDemo", "DAL.CustomerOrder\DAL.CustomerOrderDemo.csproj", "{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.CustomerOrderDemo", "Test.CustomerOrderDemo\Test.CustomerOrderDemo.csproj", "{560CF67C-C3E8-4833-8546-197535AB18AF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Release|Any CPU.Build.0 = Release|Any CPU
+		{560CF67C-C3E8-4833-8546-197535AB18AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{560CF67C-C3E8-4833-8546-197535AB18AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{560CF67C-C3E8-4833-8546-197535AB18AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{560CF67C-C3E8-4833-8546-197535AB18AF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

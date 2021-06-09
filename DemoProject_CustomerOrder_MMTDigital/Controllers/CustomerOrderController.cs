@@ -17,11 +17,13 @@ namespace DemoProject_CustomerOrder_MMTDigital.Controllers
        
         private readonly ILogger<CustomerOrderController> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IBusinessLogic _businessLogic;
 
-        public CustomerOrderController(ILogger<CustomerOrderController> logger, IConfiguration configuration)
+        public CustomerOrderController(ILogger<CustomerOrderController> logger, IConfiguration configuration, IBusinessLogic business)
         {
             _logger = logger;
             _configuration = configuration;
+            _businessLogic = business;
         }
 
         [HttpGet]
@@ -46,17 +48,17 @@ namespace DemoProject_CustomerOrder_MMTDigital.Controllers
        ///to validate & return a response with all the latest orders for the customer ID mentioned in the JSON
         public IActionResult Post(CustomerInfo cus)
         {
-            
-            IBusinessLogic repo = new BusinessLogic();
-            
+            if (cus == null)
+                return NoContent();
+
             // 1. Validate the customer 
-            var CusInfo = repo.ProcessRequest_validCustomerEmail(cus.ID, cus.email);
+            var CusInfo = _businessLogic.ProcessRequest_validCustomerEmail(cus.ID, cus.email);
              
-            if(CusInfo==null || cus.ID!=CusInfo.customerId)
+            if(cus.ID!=CusInfo.customerId)
                 return NotFound(cus);
 
             //2. Check for a order 
-            var customerOrder=repo.ProcessRequest_CheckForOrder(CusInfo);
+            var customerOrder= _businessLogic.ProcessRequest_CheckForOrder(CusInfo);
 
             //3. Check for a order with gift
 
