@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31205.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DemoProject_CustomerOrder_MMTDigital", "DemoProject_CustomerOrder_MMTDigital\DemoProject_CustomerOrder_MMTDigital.csproj", "{898ECC99-DF17-49B0-96E1-6B1825011AF6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DAL.CustomerOrderDemo", "DAL.CustomerOrder\DAL.CustomerOrderDemo.csproj", "{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{898ECC99-DF17-49B0-96E1-6B1825011AF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{898ECC99-DF17-49B0-96E1-6B1825011AF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{898ECC99-DF17-49B0-96E1-6B1825011AF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{898ECC99-DF17-49B0-96E1-6B1825011AF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{697C95EC-DBC4-4ABB-AF55-FE8B5CA94981}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5DCDE3F9-F767-4919-8A1F-B3F5E49A3319}
+	EndGlobalSection
+EndGlobal
