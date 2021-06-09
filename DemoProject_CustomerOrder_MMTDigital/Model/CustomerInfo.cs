@@ -6,10 +6,10 @@ namespace DemoProject_CustomerOrder_MMTDigital.Model
     public class CustomerInfo
     {
         [Required]
-        public string ID { get; set; }
+        public string customerId { get; set; }
 
         [Required,EmailAddress]
-        public string email { get; set; }
+        public string user { get; set; }
 
        
     }

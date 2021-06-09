@@ -41,8 +41,12 @@ namespace DAL.CustomerOrderDemo
                     {
 
                         string apiResponse = await response.Content.ReadAsStringAsync();
-                        var customerlist = JsonSerializer.Deserialize<CustomerDetails>(apiResponse, new JsonSerializerOptions());
-                        return customerlist;
+                        if (!string.IsNullOrEmpty(apiResponse))
+                        {
+                            var customerlist = JsonSerializer.Deserialize<CustomerDetails>(apiResponse, new JsonSerializerOptions());
+                            return customerlist;
+                        }
+                        return null;
                     }
                 }
             }

@@ -33,10 +33,6 @@ namespace DAL.CustomerOrderDemo.Repositories
     {
         public Customer customer { get; set; }
         public Order order { get; set; }
-        public  CustomerOrder()
-            {
-            customer = new Customer();
-            order = new Order();
-}
+        
     }
 }

@@ -52,9 +52,9 @@ namespace DemoProject_CustomerOrder_MMTDigital.Controllers
                 return NoContent();
 
             // 1. Validate the customer 
-            var CusInfo = _businessLogic.ProcessRequest_validCustomerEmail(cus.ID, cus.email);
+            var CusInfo = _businessLogic.ProcessRequest_validCustomerEmail(cus.customerId, cus.user);
              
-            if(cus.ID!=CusInfo.customerId)
+            if(CusInfo==null || cus.customerId!=CusInfo.customerId)
                 return NotFound(cus);
 
             //2. Check for a order 
