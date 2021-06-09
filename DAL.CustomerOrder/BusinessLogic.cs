@@ -1,4 +1,5 @@
 ﻿using DAL.CustomerOrderDemo.Repositories;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -12,14 +13,19 @@ namespace DAL.CustomerOrderDemo
     /// </summary>
     public class BusinessLogic : IBusinessLogic
     {
+      
         private readonly ILogger<BusinessLogic> _logger;
         private readonly IDBContext _context;
-        public BusinessLogic(ILogger<BusinessLogic> logger)
-        { _logger = logger;
-
-            
-            _context = new DBContext();
+        public BusinessLogic(ILogger<BusinessLogic> logger, IConfiguration config)
+        { _logger = logger;            
+            _context = new DBContext(config.GetConnectionString("Default"));
         }
+
+        /// <summary>
+        /// This is a method to get teh latest order containing all the product details for a customer
+        /// </summary>
+        /// <param name="cusInfo"></param>
+        /// <returns></returns>
         public CustomerOrder ProcessRequest_CheckForOrder(CustomerDetails cusInfo)
         {
 
@@ -43,14 +49,20 @@ namespace DAL.CustomerOrderDemo
                         orderItems = new List<Product>()
                     };
                 }
-                returnObj.order.orderItems.Add(new Product() { product= Convert.ToString(rowitem["ProductName"]), quantity= Convert.ToInt32(rowitem["Quantity"]), priceEach= float.Parse(Convert.ToString(rowitem["Price"]??default(float))) });
+               
+                returnObj.order.orderItems.Add(new Product() { product=  Convert.ToString(rowitem["ProductName"]), quantity= Convert.ToInt32(rowitem["Quantity"]), priceEach= float.Parse(Convert.ToString(rowitem["Price"]??default(float))) });
             
 
             }
 
             return returnObj ;
         }
-
+        /// <summary>
+        /// This is a method to verify and send back the customer details
+        /// </summary>
+        /// <param name="ID"></param>
+        /// <param name="email"></param>
+        /// <returns></returns>
         public CustomerDetails ProcessRequest_validCustomerEmail(string ID, string email)
         {
             // Validate if the customer ID matches the email ID

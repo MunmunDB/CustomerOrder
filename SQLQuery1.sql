@@ -8,7 +8,8 @@ from
 Orders O with(nolock)
 
 )
-select TP.*, OI.PRICE, OI.QUANTITY, P.PRODUCTNAME from TopRows TP
+select TP.*, OI.PRICE, OI.QUANTITY, 
+case when TP.CONTAINSGIFT=1 then 'Gift' else P.PRODUCTNAME end as ProductName from TopRows TP
 left join OrderItems OI with(nolock) on TP.ORDERID=OI.ORDERID
 left join PRODUCTS P with (nolock) on OI.PRODUCTID= P.PRODUCTID
  where Row_Num=1

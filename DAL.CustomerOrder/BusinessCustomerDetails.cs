@@ -17,12 +17,7 @@ namespace DAL.CustomerOrderDemo
     /// This hold information about the API call 
     /// This also validates the customer by sending the email id & getting a customer detail json object return.
     /// </summary>
-    internal class BusinessCustomerDetails
-    {
-
-        
-
-
+    internal class BusinessCustomerDetails {
         /// <summary>
         /// This is the method to consume external API which returns the customer information
         /// The API full test URL : https://customer-details.azurewebsites.net/api/GetUserDetails?email=sneeze@fake-customer.com&code=uu2ToG/dcsg3DI8CGlpLro1PyLhZNUWHpdPv8VmWFLBaxM0fvUZvkA==

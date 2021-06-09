@@ -11,18 +11,19 @@ namespace DAL.CustomerOrderDemo
     /// </summary>
     public class DBContext :IDBContext
     {
+        private readonly string Conn;
         /// <summary>
         /// This establishes a connection to DB  & retreives the records as per the problem statement
         /// This code needs to be futher refactored , if time permits
         /// </summary>
         DataTable ConnectTODb_Retreive(string customerID)
         {
-            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder();
+            SqlConnectionStringBuilder builder = new SqlConnectionStringBuilder(this.Conn);
 
-            builder.DataSource = "tcp:mmt-sse-test.database.windows.net";
+            /*builder.DataSource = "tcp:mmt-sse-test.database.windows.net";
             builder.UserID = "mmt-sse-test";
             builder.Password = "database-user-01";
-            builder.InitialCatalog = "SSE_Test";
+            builder.InitialCatalog = "SSE_Test";*/
 
             String sql = $@"With TopRows as (
 select O.CUSTOMERID, O.ORDERID,Convert(varchar,O.ORDERDATE,106) as OrderDate,
@@ -33,7 +34,8 @@ from
 Orders O with(nolock)
 
 )
-select TP.*, OI.PRICE, OI.QUANTITY, P.PRODUCTNAME from TopRows TP
+select TP.*, OI.PRICE, OI.QUANTITY, 
+case when TP.CONTAINSGIFT=1 then 'Gift' else P.PRODUCTNAME end as ProductName from TopRows TP
 left join OrderItems OI with(nolock) on TP.ORDERID=OI.ORDERID
 left join PRODUCTS P with (nolock) on OI.PRODUCTID= P.PRODUCTID
  where Row_Num=1 and CustomerID=@CustomerID";
@@ -65,9 +67,9 @@ left join PRODUCTS P with (nolock) on OI.PRODUCTID= P.PRODUCTID
            
         }
 
-        public DBContext()
+        public DBContext(string conn)
         {
-
+            this.Conn = conn;
         }
     }
     /// <summary>

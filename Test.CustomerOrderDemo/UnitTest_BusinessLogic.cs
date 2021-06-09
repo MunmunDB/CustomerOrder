@@ -15,6 +15,8 @@ namespace Test.CustomerOrderDemo
     [TestClass]
     public class UnitTest_BusinessLogic
     {
+
+        private readonly string connstr = "Server=tcp:mmt-sse-test.database.windows.net,1433;Initial Catalog=SSE_Test;Persist Security Info=False;User ID=mmt-sse-test;Password=database-user-01;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
         [TestMethod]
         public void TestMethod_NullInput()
         {
@@ -28,9 +30,15 @@ namespace Test.CustomerOrderDemo
         public void TestMethod_InvalidCustomer()
         { var bllogger = new Mock<ILogger<BusinessLogic>>();
             var logger = new Mock<ILogger<CustomerOrderController>>();
-            var config = new Mock<IConfiguration>();
-           
-            var controllerObj = new CustomerOrderController(logger.Object, config.Object, new BusinessLogic(bllogger.Object));
+            var mockConfSection = new Mock<IConfigurationSection>();
+            mockConfSection.SetupGet(m => m[It.Is<string>(s => s == "Default")]).Returns(connstr);
+
+            var mockConfiguration = new Mock<IConfiguration>();
+            mockConfiguration.Setup(a => a.GetSection(It.Is<string>(s => s == "ConnectionStrings"))).Returns(mockConfSection.Object);
+
+            var mockconnstr = mockConfiguration.Object.GetConnectionString("Default");
+
+            var controllerObj = new CustomerOrderController(logger.Object, mockConfiguration.Object, new BusinessLogic(bllogger.Object, mockConfiguration.Object));
 
             var result = controllerObj.Post(new CustomerInfo
             {
@@ -62,14 +70,28 @@ namespace Test.CustomerOrderDemo
             Assert.IsNotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
         }
+
+
+        /// <summary>
+        /// Mock the connection string in the config & test for a valid customer
+        /// </summary>
         [TestMethod]
         public void TestMethod_ValidCustomerEmail()
         {
+           
             var bllogger = new Mock<ILogger<BusinessLogic>>();
-            var logger = new Mock<ILogger<CustomerOrderController>>();
-            var config = new Mock<IConfiguration>();
+            var logger = new Mock<ILogger<CustomerOrderController>>();     
+            
 
-            var controllerObj = new CustomerOrderController(logger.Object, config.Object, new BusinessLogic(bllogger.Object));
+            var mockConfSection = new Mock<IConfigurationSection>();
+            mockConfSection.SetupGet(m => m[It.Is<string>(s => s == "Default")]).Returns(connstr);
+
+            var mockConfiguration = new Mock<IConfiguration>();
+            mockConfiguration.Setup(a => a.GetSection(It.Is<string>(s => s == "ConnectionStrings"))).Returns(mockConfSection.Object);
+
+            var mockconnstr = mockConfiguration.Object.GetConnectionString("Default");
+
+            var controllerObj = new CustomerOrderController(logger.Object, mockConfiguration.Object, new BusinessLogic(bllogger.Object, mockConfiguration.Object));
             var result = controllerObj.Post(new CustomerInfo { user = "cat.owner@mmtdigital.co.uk", customerId = "C34454" }) as OkObjectResult;
             Assert.IsNotNull(result);
             Assert.AreEqual((int)HttpStatusCode.OK, result.StatusCode);
